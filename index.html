@@ -219,7 +219,7 @@
     <div class="dlhint" style="margin:-6px 0 14px">本页已随 v1.1.3 刷新（2026-11-21）。看不到新内容就下拉刷新或换个浏览器再开。</div>
     <div class="card" style="max-width:none">
       <h3>v1.1.3：把自查单里“不花钱就能修”的这批补上</h3>
-      <p style="margin-top:10px">上一轮安全自查列了 11 条问题，这版先把零成本、纯代码能解决的那批全部改掉——重定向、官网白名单、强制更新、剪贴板、退化存储、防截屏、残留包清理，一个版本打包解决。</p>
+      <p style="margin-top:10px">上一轮安全自查列了 11 条问题，这版把零成本、纯代码能解决的那批全部改掉——重定向逐跳校验、官网白名单、强制更新、剪贴板、退化存储、防截屏、残留包清理，再加上 TLS 证书固定和字符串加密，一个版本打包解决。官网也迁到了 GitHub Pages。</p>
       <ul style="margin-top:12px">
         <li>更新下载不再自动跟随 302，每一跳都重新校验域名白名单，跳到别处立刻中止</li>
         <li>公告栏官网地址加域名白名单，只能落到我这边的域名，无法被指向钓鱼站</li>
@@ -227,6 +227,8 @@
         <li>剪贴板不再自动导入，每次都弹窗问你，点「导入」才写盘</li>
         <li>删掉可逆混淆的降级存储：Keystore 用不了就不保存，不留能还原的凭据</li>
         <li>签到页加防截屏；启动时清理历史更新包</li>
+        <li>TLS 证书固定：叶子 / 中间 CA / 根 CA 三级 pin，续签不锁死，握手对不上自动退回普通 TLS 并记日志</li>
+        <li>域名、路径、pin 等敏感字符串运行时还原，静态扫包只剩密文</li>
         <li>签名密钥迁到独立目录，口令只存系统环境变量，磁盘上不再有口令文件</li>
       </ul>
       <div style="margin-top:16px">
@@ -452,7 +454,7 @@
 </div>
 
 <script>
-  var APK = "https://aka.doubaocdn.com/s/O5PFz40uKy";
+  var APK = "https://aka.doubaocdn.com/s/bCbCJA2qNi";
   var NAME = "MiSignIn-v1.1.3.apk";
   var btn = document.getElementById("dl");
   var hint = document.getElementById("dlhint");
